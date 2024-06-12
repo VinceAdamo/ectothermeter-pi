@@ -113,7 +113,7 @@ try:
         except Exception as error:
             raise error
         
-        time.sleep(10.0)
+        time.sleep(60.0)
 except KeyboardInterrupt:
     print("Keyboard Interrupt Received")
     clean_up(client, dht_device)
