@@ -15,6 +15,7 @@ MQTT_USERNAME = os.getenv('MQTT_USERNAME')
 MQTT_PASSWORD = os.getenv('MQTT_PASSWORD')
 MQTT_HOST = os.getenv('MQTT_HOST')
 MQTT_PORT = int(os.getenv('MQTT_PORT'))
+CA_PATH = os.getenv('CA_PATH')
 
 def get_serial():
   cpuserial = "0000000000000000"
@@ -62,8 +63,11 @@ client.on_connect = on_connect
 
 client.username_pw_set(MQTT_USERNAME, MQTT_PASSWORD)
 
-client.tls_set(cert_reqs=paho.ssl.CERT_NONE)
-client.tls_insecure_set(True)
+client.tls_set(
+    cert_reqs=paho.ssl.CERT_REQUIRED,
+    tls_version=paho.ssl.PROTOCOL_TLSv1_2,
+    ca_certs=CA_PATH
+)
                           
 client.connect(MQTT_HOST, MQTT_PORT)
 
